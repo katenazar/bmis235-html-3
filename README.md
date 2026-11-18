@@ -3,7 +3,7 @@
 **Name:** Kate Nazar
 **GU username:** KNazar
 
-My live page: https://YOUR-GITHUB-USERNAME.github.io/bmis235-html-3/
+My live page: [https://YOUR-GITHUB-USERNAME.github.io/bmis235-html-3/](https://katenazar.github.io/bmis235-html-3/index.html)
 
 Instructions: https://gu-27.github.io/html-module/html-3.html
 
