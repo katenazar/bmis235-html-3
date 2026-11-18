@@ -72,8 +72,13 @@ a:hover {
 
 /* LIGHT BLUE HEADING DECORATION */
 h1 {
+    color: #000435;
+    text-align: center;
+    font-size: 40px;
     border-bottom: 3px solid #87CEEB;
     padding-bottom: 10px;
+    display: table;
+    margin: 20px auto;
 }
 
 
