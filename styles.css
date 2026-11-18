@@ -65,8 +65,9 @@ img {
 
 /* LINK HOVER EFFECT */
 a:hover {
-    color: #87CEEB;
-    transition: color 0.3s ease;
+    color: #87CEEB !important;
+    text-decoration: underline;
+}
 }
 
 /* LIGHT BLUE HEADING DECORATION */
