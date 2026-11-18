@@ -63,3 +63,11 @@ img {
     border-radius: 12px;
 }
 
+/* LINK HOVER EFFECT */
+a:hover {
+    color: #87CEEB;
+    transition: color 0.3s ease;
+}
+
+
+
