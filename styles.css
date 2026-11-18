@@ -69,5 +69,12 @@ a:hover {
     transition: color 0.3s ease;
 }
 
+/* LIGHT BLUE HEADING DECORATION */
+h1 {
+    border-bottom: 3px solid #87CEEB;
+    padding-bottom: 10px;
+}
+
+
 
 
