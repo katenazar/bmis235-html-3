@@ -36,7 +36,297 @@
      This box is empty on purpose. In Part 7 you paste an interactive
      graphic BETWEEN the opening <div> and the closing </div> below.
      ===================================================================== -->
-<div class="showcase"></div>
+<div class="showcase">
+<!-- HTML: Interactive Tillamook flavor ranking graphic -->
+<div class="showcase-title">
+    <div class="showcase-kicker">THE OFFICIAL TASTE TEST</div>
+    <h2 class="showcase-heading">Tillamook Flavor Rankings</h2>
+    <p class="showcase-subtitle">Five opinions. Fourteen flavors. One winner.</p>
+    <div class="showcase-winner">
+        <span>🏆 GROUP FAVORITE</span>
+        <strong>Brownie Batter</strong>
+        <small>Average ranking: 2.6 out of 14</small>
+    </div>
+</div>
+
+<div class="showcase-chart">
+    <div class="showcase-chart-heading">
+        <span>OVERALL RANKINGS</span>
+        <span>LOWER AVERAGE = BETTER</span>
+    </div>
+    <div class="showcase-list" id="flavor-list"></div>
+</div>
+
+<div class="showcase-detail" id="flavor-detail">
+    <strong>🍦 Pick a flavor!</strong>
+    <p>Click any flavor above to see how everyone ranked it.</p>
+</div>
+
+<div class="showcase-footer">
+    RANKINGS COMBINED FROM KATE, LINDSEY, ELSA, GRETA & PAIA
+</div>
+
+<style>
+/* CSS: Styles only the interactive graphic */
+.showcase {
+    background-color: #EDE8D0;
+    color: #000435;
+    font-family: Georgia, serif;
+    padding: 20px;
+    border-radius: 15px;
+    max-width: 700px;
+    margin: 20px auto;
+    box-sizing: border-box;
+    border: 2px solid #000435;
+}
+
+.showcase * {
+    box-sizing: border-box;
+}
+
+.showcase-title {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.showcase-kicker {
+    color: #477C9C;
+    font-size: 11px;
+    letter-spacing: 3px;
+    font-weight: bold;
+}
+
+.showcase-heading {
+    color: #000435;
+    font-size: 27px;
+    margin: 8px 0;
+}
+
+.showcase-subtitle {
+    font-size: 14px;
+    margin: 5px 0 15px;
+}
+
+.showcase-winner {
+    background-color: #000435;
+    color: #EDE8D0;
+    padding: 12px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.showcase-winner span {
+    color: #87CEEB;
+    font-size: 10px;
+    letter-spacing: 2px;
+}
+
+.showcase-winner strong {
+    font-size: 21px;
+}
+
+.showcase-winner small {
+    font-size: 12px;
+}
+
+.showcase-chart {
+    margin-top: 18px;
+}
+
+.showcase-chart-heading {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #B7C9D3;
+}
+
+.showcase-list {
+    max-height: 295px;
+    overflow-y: auto;
+    padding: 5px 3px;
+}
+
+.showcase-row {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #D4D9D3;
+    background: transparent;
+    padding: 8px 5px;
+    display: grid;
+    grid-template-columns: 25px minmax(0, 1fr) 43px;
+    gap: 7px;
+    align-items: center;
+    text-align: left;
+    color: #000435;
+    font-family: Georgia, serif;
+    cursor: pointer;
+}
+
+.showcase-row:hover,
+.showcase-row:focus {
+    background-color: #D6EAF5;
+    outline: 1px solid #87CEEB;
+}
+
+.showcase-number {
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.showcase-flavor-name {
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.showcase-bar-track {
+    height: 7px;
+    background-color: #D1D9D7;
+    border-radius: 10px;
+    margin-top: 5px;
+    overflow: hidden;
+}
+
+.showcase-bar {
+    height: 100%;
+    background-color: #87CEEB;
+    border-radius: 10px;
+}
+
+.showcase-row:nth-child(1) .showcase-bar,
+.showcase-row:nth-child(2) .showcase-bar,
+.showcase-row:nth-child(3) .showcase-bar {
+    background-color: #000435;
+}
+
+.showcase-average {
+    font-size: 13px;
+    font-weight: bold;
+    text-align: right;
+}
+
+.showcase-detail {
+    background-color: #D6EAF5;
+    border-left: 4px solid #000435;
+    border-radius: 7px;
+    padding: 12px;
+    margin-top: 12px;
+    min-height: 65px;
+}
+
+.showcase-detail strong {
+    font-size: 14px;
+}
+
+.showcase-detail p {
+    font-size: 12px;
+    line-height: 1.5;
+    margin: 6px 0;
+}
+
+.showcase-footer {
+    text-align: center;
+    font-size: 9px;
+    letter-spacing: 1px;
+    margin-top: 15px;
+    color: #477C9C;
+}
+
+@media (max-width: 450px) {
+    .showcase {
+        padding: 12px;
+    }
+
+    .showcase-heading {
+        font-size: 22px;
+    }
+
+    .showcase-chart-heading {
+        font-size: 8px;
+    }
+}
+</style>
+
+<script>
+/* JavaScript: Calculates averages and makes each flavor clickable */
+(function () {
+    const root = document.currentScript.closest(".showcase");
+    const list = root.querySelector("#flavor-list");
+    const detail = root.querySelector("#flavor-detail");
+
+    const people = ["Kate", "Lindsey", "Elsa", "Greta", "Paia"];
+
+    const flavors = [
+        {name:"Brownie Batter", ranks:[6,1,2,2,2]},
+        {name:"Campfire Peanut Butter Cup", ranks:[3,9,1,1,1]},
+        {name:"Espresso Chip", ranks:[4,3,3,5,5]},
+        {name:"Honey Toffee", ranks:[1,5,5,9,null]},
+        {name:"Caramel Swirl", ranks:[5,4,null,null,6]},
+        {name:"Sugar Cookie", ranks:[2,6,null,4,10]},
+        {name:"Waffle Cone Swirl", ranks:[7,8,4,3,8]},
+        {name:"Cookie Dough", ranks:[11,2,null,6,null]},
+        {name:"Dark Chocolate Cookies & Cream", ranks:[13,10,null,7,3]},
+        {name:"Mudslide", ranks:[10,7,null,null,null]},
+        {name:"Peanut Butter", ranks:[8,14,null,null,4]},
+        {name:"Mint Chip", ranks:[9,11,null,null,7]},
+        {name:"German Chocolate Cake", ranks:[14,13,6,8,9]},
+        {name:"Malted Moo Shake", ranks:[12,12,null,null,null]}
+    ];
+
+    flavors.forEach(flavor => {
+        const votes = flavor.ranks.filter(rank => rank !== null);
+        flavor.average = votes.reduce((a,b) => a+b, 0) / votes.length;
+        flavor.votes = votes.length;
+    });
+
+    flavors.sort((a,b) => a.average - b.average);
+
+    flavors.forEach((flavor, index) => {
+        const button = document.createElement("button");
+        button.className = "showcase-row";
+        button.type = "button";
+
+        const barWidth = ((14.5 - flavor.average) / 13.5) * 100;
+
+        button.innerHTML = `
+            <span class="showcase-number">#${index + 1}</span>
+            <span>
+                <span class="showcase-flavor-name">${flavor.name}</span>
+                <span class="showcase-bar-track">
+                    <span class="showcase-bar"
+                    style="display:block;width:${barWidth}%"></span>
+                </span>
+            </span>
+            <span class="showcase-average">${flavor.average.toFixed(1)}</span>
+        `;
+
+        button.addEventListener("click", function () {
+            const rankings = people.map((person, i) => {
+                const rank = flavor.ranks[i];
+                return `<p><strong>${person}:</strong> ${
+                    rank === null ? "Not ranked" : "#" + rank
+                }</p>`;
+            }).join("");
+
+            detail.innerHTML = `
+                <strong>${flavor.name}</strong>
+                <p>Overall position: #${index + 1} of 14</p>
+                <p>Average ranking: ${flavor.average.toFixed(2)}
+                &nbsp; | &nbsp; ${flavor.votes} rankings counted</p>
+                ${rankings}
+            `;
+        });
+
+        list.appendChild(button);
+    });
+})();
+</script>
+</div>
 
 <!-- Footer: fill in your name -->
 <footer>Built by YOUR NAME &middot; BMIS 235</footer>
