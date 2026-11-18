@@ -36,8 +36,14 @@ nav img {
 /* no underline or border around the image links */
 nav a {
     text-decoration: none;
+    color: #87CEEB;
 }
 
+nav a:hover {
+    color: #87CEEB;
+    background-color: #EDE8D0;
+    border-radius: 8px;
+}
 h1 {
     color: #000435;
     text-align: center;
